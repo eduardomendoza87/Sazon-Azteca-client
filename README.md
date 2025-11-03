@@ -1,16 +1,40 @@
-# React + Vite
+# 🌶️ Sazón Azteca - Cliente (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositorio contiene el código fuente del "Cliente" (Frontend) para el proyecto Sazón Azteca, el sitio web del restaurante de herencia gastronómica.
 
-Currently, two official plugins are available:
+Este proyecto es la "cara" visible del restaurante: el salón principal que los usuarios visitan. Está construido con **React (Vite)** y estilizado con **Tailwind CSS v4**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack Tecnológico
 
-## React Compiler
+* **Framework:** React (Vite)
+* **Enrutamiento:** React Router DOM
+* **Estilos:** Tailwind CSS v4 (@tailwindcss/vite)
+* **Guía de Estilo:** Configurada en `tailwind.config.js`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Cómo ejecutar localmente
 
-## Expanding the ESLint configuration
+Sigue estos pasos para levantar el entorno de desarrollo del cliente:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone [https://github.com/tu-usuario/raices-sazon-client.git](https://github.com/tu-usuario/raices-sazon-client.git)
+    cd Sazon-azteca-client
+    ```
+
+2.  **Instalar dependencias:**
+    (Esto instalará React, React Router, Tailwind, etc.)
+    ```bash
+    npm install
+    ```
+
+3.  **Ejecutar el servidor de desarrollo:**
+    (Esto levanta el proyecto en `http://localhost:5173` o un puerto similar)
+    ```bash
+    npm run dev
+    ```
+
+## Scripts Disponibles
+
+* `npm run dev`: Inicia el servidor de desarrollo de Vite.
+* `npm run build`: Compila la aplicación para producción.
+* `npm run preview`: Previsualiza la build de producción localmente.
