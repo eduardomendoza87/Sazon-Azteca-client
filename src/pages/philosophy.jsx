@@ -91,7 +91,7 @@ const OurPhilosophy = () => {
         {/* Contenedor principal para padding y ancho */}
         <div className="max-w-6xl mx-auto">
           {/* Título */}
-          <h2 className="font-titulo text-5xl text-volcan text-center mb-16">
+          <h2 className="font-extrabold text-5xl text-grisvolcan text-center mb-16">
             Directo de la Milpa
           </h2>
 
