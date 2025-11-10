@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 //Imagenes 
 import filosofia_hero2 from "../assets/filosofia_hero2.jpg";
 import directomilpa1 from "../assets/directomilpa1.png"
@@ -9,6 +9,7 @@ import cocina_mexicana from "../assets/cocina_mexicana.png";
 
 //boton
 import ButtonSecondary from "../components/buttons/buttonSecondary";
+import ButtonPrimary from "../components/buttons/buttonPrimary";
 
 // textura fondo
 import SectionWall from "../components/textures/SectionWall"; 
@@ -101,9 +102,9 @@ const OurPhilosophy = () => {
                 key={datos.id}
                 className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
               >
-                <h2 className="font-semibold text-xl text-grisvolcan text-center mb-4">
+                <h3 className="font-semibold text-xl text-grisvolcan text-center mb-4">
                   {datos.titulo}
-                </h2>
+                </h3>
                 <img
                   src={datos.imagen}
                   alt={datos.titulo}
@@ -125,7 +126,9 @@ const OurPhilosophy = () => {
           </h3>
         </div>
         <div className="flex items-center justify-center mb-8 gap-8">
-          <ButtonSecondary>Reservar</ButtonSecondary>
+          <Link to="/reservas">
+          <ButtonPrimary>Reservar</ButtonPrimary>
+          </Link>
         </div>
       </section>
     </>

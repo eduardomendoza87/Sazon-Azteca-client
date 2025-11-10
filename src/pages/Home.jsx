@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // --- COMPONENTES ---
 import ButtonPrimary from "../components/buttons/buttonPrimary"; 
 import SectionWrapper from "../components/textures/SectionWrapper";
@@ -35,7 +36,9 @@ const Home = () => {
           </p>
 
           <div className="flex justify-center">
+            <Link to="/menu">
             <ButtonPrimary>Ver el menu</ButtonPrimary>
+            </Link>
           </div>
         </div>
       </section>
@@ -50,9 +53,9 @@ const Home = () => {
               alt="Desayunos"
               className="w-full h-48 object-cover rounded-lg mb-8"
             />
-            <p className="font-bold text-parrafo text-lg mb-8">
+            <h3 className="font-bold text-parrafo text-lg mb-8">
               Cada mañana te ofrecemos desayunos recién hechos...
-            </p>
+            </h3>
             <ButtonPrimary>Ver el menu</ButtonPrimary>
           </div>
 
@@ -63,9 +66,9 @@ const Home = () => {
               alt="Comidas"
               className="w-full h-48 object-cover rounded-lg mb-8"
             />
-            <p className="font-bold text-parrafo text-lg mb-8">
+            <h3 className="font-bold text-parrafo text-lg mb-8">
               En nuestras cocinas todos los días preparamos...
-            </p>
+            </h3>
             <ButtonPrimary>Ver el menu</ButtonPrimary>
           </div>
 
@@ -76,9 +79,9 @@ const Home = () => {
               alt="Bebidas"
               className="w-full h-48 object-cover rounded-lg mb-8"
             />
-            <p className="font-bold text-parrafo text-lg mb-8">
+            <h3  className="font-bold text-parrafo text-lg mb-8">
               Aguas frescas hechas con fruta de temporada...
-            </p>
+            </h3>
             <ButtonPrimary>Ver el menu</ButtonPrimary>
           </div>
         </div>

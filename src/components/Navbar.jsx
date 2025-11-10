@@ -33,19 +33,19 @@ const Navbar = () => {
     return (
       <nav className="bg-grisvolcan shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20"> {/* Aumentamos un poco la altura */}
-
+          <div className="flex items-center justify-between h-20">
+            {" "}
+            {/* Aumentamos un poco la altura */}
             {/* 1. Logo (Izquierda) */}
             <div className="flex-shrink-0">
               <NavLink to="/">
-                <img 
-                  src={Logo_sazon_azteca} 
-                  alt="Logo Sazón Azteca" 
+                <img
+                  src={Logo_sazon_azteca}
+                  alt="Logo Sazón Azteca"
                   className="h-16 w-auto" // Tamaño ajustado
                 />
               </NavLink>
             </div>
-
             {/* 2. Links (Centro) - Solo Desktop */}
             <div className="hidden md:flex md:justify-center">
               <div className="flex items-baseline space-x-4">
@@ -61,10 +61,8 @@ const Navbar = () => {
                 ))}
               </div>
             </div>
-
             {/* 3. Botón Reservar (Derecha) y Menú Hamburguesa */}
             <div className="flex items-center">
-              
               {/* Botón Reservar (Solo Desktop) */}
               <div className="hidden md:block ml-4">
                 <NavLink
@@ -94,13 +92,14 @@ const Navbar = () => {
                 </button>
               </div>
             </div>
-
           </div>
         </div>
 
         {/* 4. Menú Móvil */}
         <div
-          className={`${isOpen ? "block" : "hidden"} md:hidden border-t border-terracota`}
+          className={`${
+            isOpen ? "block" : "hidden"
+          } md:hidden border-t border-terracota`}
           id="mobile-menu"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -108,7 +107,7 @@ const Navbar = () => {
               <NavLink
                 key={link.name}
                 to={link.path}
-                onClick={() => setIsOpen(false)} 
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
                   "block px-3 py-2 rounded-md text-base font-cuerpo " +
                   (isActive
@@ -123,7 +122,7 @@ const Navbar = () => {
                 <span className="inline-block align-middle">{link.name}</span>
               </NavLink>
             ))}
-            
+
             {/* Botón Reservar (Móvil) */}
             <NavLink
               to="/reservas"
@@ -136,7 +135,6 @@ const Navbar = () => {
             >
               Reservar Ahora
             </NavLink>
-
           </div>
         </div>
       </nav>
