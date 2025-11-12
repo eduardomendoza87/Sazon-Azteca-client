@@ -77,6 +77,20 @@ const Navbar = () => {
                   Reservar
                 </NavLink>
               </div>
+              {/*Boton de inicio de sesion*/}
+              <div className="hidden md:block ml-4">
+                <NavLink
+                  to="/admin/login"
+                  // Estilizado como nuestro ButtonSecondary (verde)
+                  className="focus:outline-none 
+                 text-white bg-rojoquemado 
+                 hover:bg-terracota 
+                 focus:ring-4 focus:ring-rojoquemado/50 
+                 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                >
+                  Iniciar Sesión
+                </NavLink>
+              </div>
 
               {/* Botón de Hamburguesa (Solo Móvil) */}
               <div className="md:hidden flex items-center">
@@ -134,6 +148,18 @@ const Navbar = () => {
                  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
             >
               Reservar Ahora
+            </NavLink>
+            {/*Boton de inicio de sesion*/}
+            <NavLink
+              to="/admin/login"
+              onClick={() => setIsOpen(false)}
+              className="focus:outline-none 
+                 text-white bg-rojoquemado 
+                 hover:bg-terracota 
+                 focus:ring-4 focus:ring-rojoquemado/50 
+                 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+            >
+              Iniciar Sesión
             </NavLink>
           </div>
         </div>
