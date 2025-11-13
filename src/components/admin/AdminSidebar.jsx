@@ -23,7 +23,7 @@ const AdminSidebar = () => {
         { to: "/admin/dashboard", text: "Inicio", icon: <FiGrid /> },
         { to: "/admin/platillos", text: "Platillos", icon: <FiPackage /> },
         { to: "/admin/categorias", text: "Categorías", icon: <FiTag /> },
-        { to: "/admin/relatos", text: "Relatos", icon: <FiFileText /> },
+        { to: "/admin/articulos", text: "Relatos", icon: <FiFileText /> },
         { to: "/admin/reservas", text: "Reservas", icon: <FiCalendar /> },
     ];
 

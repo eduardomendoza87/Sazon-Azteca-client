@@ -15,6 +15,13 @@ import ReservationConfirmed from '../components/forms/ReservationConfirmed';
 //Paginas admin
 import HomeAdmin from '../pages/admin/HomeAdmin';
 import AdminLogin from '../pages/admin/AdminLogin';
+import PlatillosAdmin from '../pages/admin/PlatillosAdmin';
+import FormsCrearPlatillo from '../components/admin/forms/FormsCrearPlatillo';
+import FormsEditarPlatillo from '../components/admin/forms/FormsEditarPlatillo';
+import CategoriasAdmin from '../pages/admin/CategoriasAdmin';
+import FormsCrearCategoria from '../components/admin/forms/FormsCrearCategoria';
+import ArticulosAdmin from '../pages/admin/RelatosAdmin';
+
 
 //Layouts
 import ClienteLayout from '../layouts/ClienteLayout';
@@ -44,6 +51,12 @@ const AppRoutes = () =>{
                 {/* Si vas a /admin, te lleva al dashboard */}
                 <Route index element={<HomeAdmin />} /> 
                 <Route path="dashboard" element={<HomeAdmin />} />
+                <Route path="platillos" element={<PlatillosAdmin/>}/>
+                <Route path='crear-platillo' element={<FormsCrearPlatillo/>}/>
+                <Route path='categorias' element={<CategoriasAdmin/>}/>
+                <Route path='crear-categoria' element={<FormsCrearCategoria/>}/>
+                <Route path='articulos' element={<ArticulosAdmin/>}/>
+                <Route path='platillos/editar/:id' element={<FormsEditarPlatillo/>}/>
                 
 
             </Route>
