@@ -20,6 +20,7 @@ import FormsCrearPlatillo from '../components/admin/forms/FormsCrearPlatillo';
 import FormsEditarPlatillo from '../components/admin/forms/FormsEditarPlatillo';
 import CategoriasAdmin from '../pages/admin/CategoriasAdmin';
 import FormsCrearCategoria from '../components/admin/forms/FormsCrearCategoria';
+import FormsEditarCategoria from '../components/admin/forms/FormsEditarCategoria';
 import ArticulosAdmin from '../pages/admin/RelatosAdmin';
 
 
@@ -57,6 +58,7 @@ const AppRoutes = () =>{
                 <Route path='crear-categoria' element={<FormsCrearCategoria/>}/>
                 <Route path='articulos' element={<ArticulosAdmin/>}/>
                 <Route path='platillos/editar/:id' element={<FormsEditarPlatillo/>}/>
+                <Route path='categorias/editar/:id' element={<FormsEditarCategoria/>}/>
                 
 
             </Route>
