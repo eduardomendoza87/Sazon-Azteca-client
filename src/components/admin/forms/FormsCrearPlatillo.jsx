@@ -7,7 +7,7 @@ const FormsCrearPlatillo = () => {
     // (DEV) 1. Estado para el formulario. ¡Nombres IGUALES al backend!
     const [formData, setFormData] = useState({
         titulo: "",
-        categoriaId: "", // (DEV) Será un número, no un string
+        categoriaId: "",
         precio: "",
         imagenUrl: "",
         descripcion: "",

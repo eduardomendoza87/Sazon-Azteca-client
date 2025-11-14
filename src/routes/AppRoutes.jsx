@@ -22,6 +22,9 @@ import CategoriasAdmin from '../pages/admin/CategoriasAdmin';
 import FormsCrearCategoria from '../components/admin/forms/FormsCrearCategoria';
 import FormsEditarCategoria from '../components/admin/forms/FormsEditarCategoria';
 import ArticulosAdmin from '../pages/admin/RelatosAdmin';
+import ReservasAdmin from '../pages/admin/ReservasAdmin';
+import FormsCrearArticulo from '../components/admin/forms/FormsCrearArticulo';
+import FormsEditarArticulo from '../components/admin/forms/FormsEditarArticulo';
 
 
 //Layouts
@@ -59,6 +62,9 @@ const AppRoutes = () =>{
                 <Route path='articulos' element={<ArticulosAdmin/>}/>
                 <Route path='platillos/editar/:id' element={<FormsEditarPlatillo/>}/>
                 <Route path='categorias/editar/:id' element={<FormsEditarCategoria/>}/>
+                <Route path='gestion-reservas' element={<ReservasAdmin/>}/>
+                <Route path='crear-articulo' element={<FormsCrearArticulo/>}/>
+                <Route path='relatos/editar/:slug' element={<FormsEditarArticulo/>}/>
                 
 
             </Route>

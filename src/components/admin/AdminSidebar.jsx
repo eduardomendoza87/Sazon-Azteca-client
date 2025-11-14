@@ -24,7 +24,7 @@ const AdminSidebar = () => {
         { to: "/admin/platillos", text: "Platillos", icon: <FiPackage /> },
         { to: "/admin/categorias", text: "Categorías", icon: <FiTag /> },
         { to: "/admin/articulos", text: "Relatos", icon: <FiFileText /> },
-        { to: "/admin/reservas", text: "Reservas", icon: <FiCalendar /> },
+        { to: "/admin/gestion-reservas", text: "Reservas", icon: <FiCalendar /> },
     ];
 
     // (DEV) Lógica para cerrar sesión

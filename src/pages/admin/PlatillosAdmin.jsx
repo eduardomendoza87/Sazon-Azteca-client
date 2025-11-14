@@ -76,7 +76,7 @@ const PlatillosAdmin = () => {
                     </div>
                     {/* (UX) Botón de Crear (Color de marca corregido) */}
                     <Link
-                        to="/admin/platillos/crear" // (DEV) Ruta de creación
+                        to="/admin/crear-platillo" // (DEV) Ruta de creación
                         className="bg-rojoquemado text-white font-semibold py-2 px-5 rounded-lg
                                    hover:bg-terracota transition-colors"
                     >
