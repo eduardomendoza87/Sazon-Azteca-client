@@ -1,78 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaCalendarAlt, FaUserEdit, FaTag, FaArrowLeft } from 'react-icons/fa';
-import DOMPurify from 'dompurify'; // (QA) 1. IMPORTANTE: Importar DOMPurify
-
-// --- DATOS DE PRUEBA (MOCK DATA) ---
-const MOCK_ARTICLE_DATA = [
-  {
-    // --- RECETA ---
-    slug: "receta-mole-poblano",
-    titulo: "Receta para el Mole Tradicional",
-    categoria: "Receta", 
-    fecha: "31 de Oct, 2025",
-    autor: "Chef Ricardo Muñoz Zurita",
-    imagenPrincipal: "https://placehold.co/1200x500/A68A64/3D362D?text=MOLE+TERMINADO",
-    
-    // (DEV) 2. CONTENIDO CON EL SEPARADOR
-    contenidoHTML: `
-            <div class="grid md:grid-cols-2 gap-x-10 text-lg">
-                <h3 class="font-extrabold text-lg text-grisvolcan mb-3 mt-4">7 chiles anchos</h3>
-                <h3 class="font-extrabold text-lg text-grisvolcan mb-3">6 chiles mulatos</h3>
-                </div>
-            
-            <div class="mt-12 text-lg leading-relaxed">
-                <p class="mb-4"><span class="font-bold text-terracota">a.</span> Lave y quite la vena de los chiles...</p>
-                </div>
-        `,
-  },
-  {
-    // --- INVESTIGACIÓN ---
-    slug: "ingredientes-mas-usados",
-    titulo: "La Milpa Digital: Ingredientes Top 2025",
-    categoria: "Investigación",
-    fecha: "15 de Diciembre, 2024",
-    autor: "Jorge Ruiz",
-    imagenPrincipal: "https://placehold.co/1200x500/DCD0C0/3D362D?text=INVESTIGACION+GASTRONOMICA",
-    contenidoHTML: `
-            <p class="text-xl mb-6">Nuestra investigación...</p>
-            <h2 class="text-3xl font-serif text-grisvolcan mb-4 mt-8">El Top 3 de la Herencia</h2>
-            `,
-  },
-];
-
-// ***************************************************************
+import DOMPurify from 'dompurify';
 
 const StoryDetailPage = () => {
-    const { slug } = useParams();
+    const { slug } = useParams(); 
     const [article, setArticle] = useState(null);
     const [loading, setLoading] = useState(true);
-    const isReceta = article?.categoria === 'Receta'; 
+    const [error, setError] = useState(null);
 
-    // Simulación de llamada a la API (sin cambios)
+    //  Llamada a la API REAL
     useEffect(() => {
-        const fetchArticle = () => {
-            const data = MOCK_ARTICLE_DATA.find(a => a.slug === slug);
-            setArticle(data);
-            setLoading(false);
+        const fetchArticle = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await fetch(`http://localhost:8080/api/relatos/${slug}`);
+                
+                if (!response.ok) {
+                    // Si es 404, lanzamos un error específico
+                    if (response.status === 404) throw new Error("Artículo no encontrado");
+                    throw new Error("Error al cargar el artículo");
+                }
+
+                const data = await response.json();
+                setArticle(data);
+
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
         };
+
         fetchArticle();
     }, [slug]);
 
 
+    // Estados de carga y error
     if (loading) {
-        return <div className="min-h-screen flex justify-center items-center text-grisvolcan">Cargando Artículo...</div>;
+        return <div className="min-h-screen flex justify-center items-center text-grisvolcan text-xl">Cargando relato...</div>;
     }
 
-    if (!article) {
+    if (error || !article) {
         return (
-            <div className="min-h-screen text-center py-16">
-                <h1 className="font-serif text-4xl text-grisvolcan">Artículo no encontrado</h1>
+            <div className="min-h-screen text-center py-16 flex flex-col items-center justify-center">
+                <h1 className="font-serif text-4xl text-grisvolcan mb-4">
+                    {error === "Artículo no encontrado" ? "Artículo no encontrado" : "Hubo un error"}
+                </h1>
+                <p className="text-parrafo mb-6">{error !== "Artículo no encontrado" && error}</p>
                 
-                {/* (QA) 3. CORRECCIÓN: Se eliminó el <button> anidado */}
                 <Link 
                     to="/relatos" 
-                    className="inline-block mt-4 text-terracota hover:underline inline-flex items-center space-x-2"
+                    className="text-terracota hover:underline inline-flex items-center space-x-2 text-lg font-semibold"
                 >
                     <FaArrowLeft /> <span>Volver a todos los relatos</span>
                 </Link>
@@ -80,24 +60,27 @@ const StoryDetailPage = () => {
         );
     }
     
-    // (DEV) 2. Lógica para RECETAS (Corregida)
+    const isReceta = article.categoria === 'Receta'; 
+    
     let ingredientesHTML = '';
     let preparacionHTML = '';
     
-    if (isReceta) {
-        const separator = ''; // El separador correcto
-        const contentParts = article.contenidoHTML.split(separator);
+    if (isReceta && article.contenido) {
+        const separator = ''; 
+        const contentParts = article.contenido.split(separator);
         
         ingredientesHTML = contentParts[0];
-        
         if (contentParts.length > 1) {
             preparacionHTML = contentParts[1];
+        } else {
+            // Fallback si no hay separador: todo va a ingredientes o preparación según prefieras
+            preparacionHTML = article.contenido; 
         }
     }
     
-    // (QA) 1. FUNCIONES DE RENDERIZADO SEGURO con DOMPurify
+    // (QA) Funciones de saneamiento con DOMPurify
     const renderFullContent = () => ({ 
-        __html: DOMPurify.sanitize(article.contenidoHTML) 
+        __html: DOMPurify.sanitize(article.contenido) 
     });
     
     const renderIngredientes = () => ({ 
@@ -108,35 +91,41 @@ const StoryDetailPage = () => {
         __html: DOMPurify.sanitize(preparacionHTML) 
     });
     
-    const preparacionExiste = isReceta && preparacionHTML.trim().length > 0;
+    const preparacionExiste = isReceta && preparacionHTML && preparacionHTML.trim().length > 0;
 
 
     return (
         <section className="bg-blancohueso min-h-screen">
             {/* 1. HERO - IMAGEN Y TÍTULO */}
-            <div className="relative">
+            <div className="relative h-96 w-full">
                 <img 
-                    src={article.imagenPrincipal} 
-                    alt={`Imagen principal de ${article.titulo}`} // (QA) ¡Alt text dinámico y perfecto!
-                    className="w-full h-96 object-cover" 
+                    src={article.imagenDestacada.startsWith('http') 
+                        ? article.imagenDestacada 
+                        : `http://localhost:8080${article.imagenDestacada}`
+                    }
+                    alt={`Imagen principal de ${article.titulo}`} 
+                    className="w-full h-full object-cover" 
                 />
+                <div className="absolute inset-0 bg-black bg-opacity-20"></div>
             </div>
 
-            <div className="max-w-4xl mx-auto px-4">
+            <div className="max-w-4xl mx-auto px-4 -mt-20 relative z-10 bg-blancohueso rounded-t-3xl p-8 shadow-lg">
                 
-                {/* Título Principal y Metadatos (sin cambios) */}
-                <h1 className="font-extrabold text-5xl text-grisvolcan text-center mt-10 mb-6">
+                {/* Título Principal y Metadatos */}
+                <h1 className="font-extrabold text-4xl md:text-5xl text-grisvolcan text-center mb-6 leading-tight">
                     {article.titulo}
                 </h1>
                 
-                <div className="flex justify-center flex-wrap gap-x-6 gap-y-2 mb-10 text-parrafo text-sm">
+                <div className="flex justify-center flex-wrap gap-6 mb-10 text-parrafo text-sm md:text-base">
                     <p className="flex items-center space-x-2">
                         <FaUserEdit className="text-rojoquemado" />
                         <span>Autor: <span className="font-semibold">{article.autor}</span></span>
                     </p>
                     <p className="flex items-center space-x-2">
                         <FaCalendarAlt className="text-rojoquemado" />
-                        <span>Publicado el: <span className="font-semibold">{article.fecha}</span></span>
+                        <span>Publicado el: <span className="font-semibold">
+                            {new Date(article.fecha).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
+                        </span></span>
                     </p>
                     <p className="flex items-center space-x-2">
                         <FaTag className="text-rojoquemado" />
@@ -144,53 +133,48 @@ const StoryDetailPage = () => {
                     </p>
                 </div>
                 
-                {/* --- LÓGICA DE CONTENIDO CONDICIONAL --- */}
+                {/* --- CONTENIDO CONDICIONAL --- */}
 
                 {isReceta ? (
-                    <>
+                    <div className="space-y-10">
                         {/* SECCIÓN 2: INGREDIENTES */}
-                        <div className="bg-terracota bg-opacity-10 p-8 rounded-lg mb-10 text-center">
-                            <h2 className="font-extrabold text-4xl text-grisvolcan mb-6">
+                        <div className="bg-terracota bg-opacity-10 p-8 rounded-xl border border-terracota/20">
+                            <h2 className="font-extrabold text-3xl text-grisvolcan mb-6 text-center border-b border-terracota/20 pb-4">
                                 Ingredientes
                             </h2>
-                            {/* (QA) 1. Usando la función SANEADA */}
-                            <div className="font-cuerpo text-parrafo" dangerouslySetInnerHTML={renderIngredientes()} />
+                            <div className="font-cuerpo text-parrafo text-lg leading-relaxed" dangerouslySetInnerHTML={renderIngredientes()} />
                         </div>
 
                         {/* SECCIÓN 3: PREPARACIÓN */}
                         {preparacionExiste && (
-                            <div className="bg-terracota bg-opacity-10 p-8 rounded-lg mb-10">
-                                <h2 className="font-extrabold text-4xl text-grisvolcan mb-6 text-center">
+                            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                                <h2 className="font-extrabold text-3xl text-grisvolcan mb-6 text-center">
                                     Preparación
                                 </h2>
-                                {/* (QA) 1. Usando la función SANEADA */}
-                                <div className="font-cuerpo text-left text-parrafo text-lg" 
+                                <div className="font-cuerpo text-left text-parrafo text-lg leading-relaxed space-y-4" 
                                      dangerouslySetInnerHTML={renderPreparacion()} 
                                 />
                             </div>
                         )}
-                    </>
+                    </div>
                 ) : (
-                    /* RENDERIZADO PARA ARTÍCULOS DE INVESTIGACIÓN (Contenido simple) */
-                    <div className="font-cuerpo text-parrafo text-lg py-8">
-                        {/* (QA) 1. Usando la función SANEADA */}
+                    /* RENDERIZADO PARA ARTÍCULOS DE INVESTIGACIÓN */
+                    <div className="font-cuerpo text-parrafo text-lg leading-relaxed py-4">
                         <div dangerouslySetInnerHTML={renderFullContent()} />
                     </div>
                 )}
 
 
-                {/* CTA Único */}
-                <div className="text-center py-8">
-                    <h2 className="font-serif text-3xl text-grisvolcan mb-4">
-                        Prueba nuestra cocina
+                {/* CTA Final */}
+                <div className="text-center py-16 mt-8 border-t border-gray-200">
+                    <h2 className="font-serif text-3xl text-grisvolcan mb-6">
+                        ¿Se te antojó?
                     </h2>
-                    
-                    
                     <Link 
                         to="/reservas"
-                        className="bg-rojoquemado text-white px-8 py-3 rounded-md hover:bg-verdenopal transition-colors duration-300 font-semibold"
+                        className="bg-rojoquemado text-white px-8 py-4 rounded-full hover:bg-terracota transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                     >
-                        Reservar ahora
+                        Reserva tu mesa ahora
                     </Link>
                 </div>
 

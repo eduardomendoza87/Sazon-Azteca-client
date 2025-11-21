@@ -44,48 +44,49 @@ const Home = () => {
       </section>
 
       {/* === SECCIÓN 3: DESCUBRE NUESTRO MENÚ === */}
-      <SectionWrapper title="Descubre nuestro menu">
+      <section className="bg-terracota py-16 px-4">
+        <h2 className="font-extrabold text-grisvolcan text-center text-3xl mb-10 gap-4">Descubre nuestro menu </h2>
         <div className="grid lg:grid-cols-3 gap-10">
           {/* Tarjeta 1: Desayunos */}
-          <div className="flex flex-col items-center text-center">
+          <div className="bg-amber-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <img
               src={imgEnchiladas}
               alt="Desayunos"
               className="w-full h-48 object-cover rounded-lg mb-8"
             />
-            <h3 className="font-bold text-parrafo text-lg mb-8">
+            <h2 className="font-normal text-parrafo text-lg mb-8">
               Cada mañana te ofrecemos desayunos recién hechos...
-            </h3>
+            </h2>
             <ButtonPrimary>Ver el menu</ButtonPrimary>
           </div>
 
           {/* Tarjeta 2: Comidas */}
-          <div className="flex flex-col items-center text-center">
+          <div className="bg-amber-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <img
               src={imgMole}
               alt="Comidas"
               className="w-full h-48 object-cover rounded-lg mb-8"
             />
-            <h3 className="font-bold text-parrafo text-lg mb-8">
+            <h2 className="font-normal text-parrafo text-lg mb-8">
               En nuestras cocinas todos los días preparamos...
-            </h3>
+            </h2>
             <ButtonPrimary>Ver el menu</ButtonPrimary>
           </div>
 
           {/* Tarjeta 3: Bebidas */}
-          <div className="flex flex-col items-center text-center">
+          <div className="bg-amber-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <img
               src={imgAguas}
               alt="Bebidas"
               className="w-full h-48 object-cover rounded-lg mb-8"
             />
-            <h3  className="font-bold text-parrafo text-lg mb-8">
+            <h3  className="font-normal text-parrafo text-lg mb-8">
               Aguas frescas hechas con fruta de temporada...
             </h3>
             <ButtonPrimary>Ver el menu</ButtonPrimary>
           </div>
         </div>
-      </SectionWrapper>
+      </section>
 
       {/* === SECCIÓN 4: NUESTRO EQUIPO === */}
       <section className="bg-blancohueso py-16 px-4">

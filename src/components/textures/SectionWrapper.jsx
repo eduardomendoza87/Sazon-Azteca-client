@@ -14,7 +14,7 @@ const SectionWrapper = ({ children, title, className }) => {
   // --- ¡AQUÍ ESTÁ LA LÓGICA! ---
   // 1. Definimos nuestro fondo de textura "directamente" usando valores arbitrarios.
   //    (Asegúrate de que la ruta a tu textura sea correcta)
-  const defaultBgClass = "bg-madera bg-[url('/src/assets/textura_madera.jpg')]";
+  const defaultBgClass = "bg-madera bg-[url('/src/assets/textura_madera_2.webp')]";
 
   // 2. Si pasaste una 'className' (como 'bg-maiz'), la usamos.
   //    Si no, usamos nuestro 'defaultBgClass'.
